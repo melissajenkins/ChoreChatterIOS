@@ -14,6 +14,7 @@
 		2918AEBD21AC8E5100633DCA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2918AEBB21AC8E5100633DCA /* LaunchScreen.storyboard */; };
 		2918AEC821AC8E5100633DCA /* Chore_ChatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918AEC721AC8E5100633DCA /* Chore_ChatterTests.swift */; };
 		2918AED321AC8E5100633DCA /* Chore_ChatterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918AED221AC8E5100633DCA /* Chore_ChatterUITests.swift */; };
+		29AF86F021B5E01A0016525A /* RedeemPointsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF86EF21B5E01A0016525A /* RedeemPointsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		2918AECE21AC8E5100633DCA /* Chore ChatterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chore ChatterUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2918AED221AC8E5100633DCA /* Chore_ChatterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore_ChatterUITests.swift; sourceTree = "<group>"; };
 		2918AED421AC8E5100633DCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		29AF86EF21B5E01A0016525A /* RedeemPointsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedeemPointsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				2918AEB921AC8E5100633DCA /* Assets.xcassets */,
 				2918AEBB21AC8E5100633DCA /* LaunchScreen.storyboard */,
 				2918AEBE21AC8E5100633DCA /* Info.plist */,
+				29AF86EF21B5E01A0016525A /* RedeemPointsController.swift */,
 			);
 			path = "Chore Chatter";
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29AF86F021B5E01A0016525A /* RedeemPointsController.swift in Sources */,
 				2918AEB521AC8E4E00633DCA /* ViewController.swift in Sources */,
 				2918AEB321AC8E4E00633DCA /* AppDelegate.swift in Sources */,
 			);
