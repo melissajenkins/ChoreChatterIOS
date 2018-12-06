@@ -48,6 +48,7 @@ class RedeemPointsController: UIViewController {
         alertController.addTextField { (textField) in
             textField.placeholder = "Enter Parent Pin"
             textField.keyboardType = .numberPad
+            textField.maxLength = 4
 
         }
         
