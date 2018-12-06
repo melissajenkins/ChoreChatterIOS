@@ -77,7 +77,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qAK-74-yGe">
-                                <rect key="frame" x="16" y="36" width="343" height="58.5"/>
+                                <rect key="frame" x="16" y="80" width="343" height="58.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvi-U1-mnb">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
@@ -154,7 +154,7 @@
         <!--Show Chores List-->
         <scene sceneID="57C-NX-WEK">
             <objects>
-                <tableViewController title="Show Chores List" id="Fq1-OL-mLJ" sceneMemberID="viewController">
+                <tableViewController title="Show Chores List" id="Fq1-OL-mLJ" customClass="ChoresListController" customModule="Chore_Chatter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9Gp-Ms-8sa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -184,15 +184,30 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="o8u-T2-D2R" kind="show" id="ngt-zd-W2w"/>
+                                    <segue destination="o8u-T2-D2R" kind="show" identifier="CurrentChoreSegue" id="ngt-zd-W2w"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="Fq1-OL-mLJ" id="EiK-Mv-Z2S"/>
-                            <outlet property="delegate" destination="Fq1-OL-mLJ" id="L6h-Uu-Zve"/>
+                            <outlet property="dataSource" destination="Fq1-OL-mLJ" id="cg5-1j-Xj1"/>
+                            <outlet property="delegate" destination="Fq1-OL-mLJ" id="ChA-jP-Blc"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Chores List" id="6W6-Y4-Lkm">
+                        <barButtonItem key="leftBarButtonItem" title="Add Chore" id="xjk-vA-jtV">
+                            <connections>
+                                <segue destination="fbM-Nh-hiV" kind="show" identifier="addChoreSegue" id="qoM-Ay-YDY"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Redeem Points" id="2ew-YJ-YOk">
+                            <connections>
+                                <segue destination="1xe-An-9tr" kind="show" id="3wf-pz-0BY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="9Gp-Ms-8sa" id="mL5-Lk-7VD"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i81-Y0-mHe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -310,6 +325,7 @@
                                 <state key="normal" title="Start Chore"/>
                                 <connections>
                                     <action selector="startChore:" destination="o8u-T2-D2R" eventType="touchUpInside" id="Ubc-LY-W8o"/>
+                                    <segue destination="YF0-eR-vws" kind="show" identifier="ActiveChoreSegue" id="1YP-Nj-5Gp"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -402,6 +418,7 @@
                         <outlet property="UserName" destination="MFi-LT-yqn" id="L0G-xD-N6w"/>
                         <outlet property="UserPicture" destination="l1T-k8-xKo" id="OkP-Sl-q0u"/>
                         <outlet property="UserPin" destination="bbM-E4-Gu2" id="rjQ-af-VuF"/>
+                        <segue destination="Fq1-OL-mLJ" kind="show" identifier="choreListSegue" id="GsW-Rb-58H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3iH-ui-Wb0" userLabel="First Responder" sceneMemberID="firstResponder"/>

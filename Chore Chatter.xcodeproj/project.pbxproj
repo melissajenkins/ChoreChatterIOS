@@ -14,6 +14,13 @@
 		2918AEBD21AC8E5100633DCA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2918AEBB21AC8E5100633DCA /* LaunchScreen.storyboard */; };
 		2918AEC821AC8E5100633DCA /* Chore_ChatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918AEC721AC8E5100633DCA /* Chore_ChatterTests.swift */; };
 		2918AED321AC8E5100633DCA /* Chore_ChatterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918AED221AC8E5100633DCA /* Chore_ChatterUITests.swift */; };
+		295341E121B9C27700FEF8CA /* ViewChoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295341DB21B9C27600FEF8CA /* ViewChoreController.swift */; };
+		295341E221B9C27700FEF8CA /* TextFieldMaxLengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295341DC21B9C27600FEF8CA /* TextFieldMaxLengths.swift */; };
+		295341E321B9C27700FEF8CA /* UserCreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295341DD21B9C27600FEF8CA /* UserCreateController.swift */; };
+		295341E421B9C27700FEF8CA /* UserLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295341DE21B9C27700FEF8CA /* UserLoginController.swift */; };
+		295341E521B9C27700FEF8CA /* CurrentChoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295341DF21B9C27700FEF8CA /* CurrentChoreViewController.swift */; };
+		295341E621B9C27700FEF8CA /* EditChoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295341E021B9C27700FEF8CA /* EditChoreController.swift */; };
+		295341E821B9C42400FEF8CA /* ChoresListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295341E721B9C42400FEF8CA /* ChoresListController.swift */; };
 		29AF86F021B5E01A0016525A /* RedeemPointsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF86EF21B5E01A0016525A /* RedeemPointsController.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +55,13 @@
 		2918AECE21AC8E5100633DCA /* Chore ChatterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chore ChatterUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2918AED221AC8E5100633DCA /* Chore_ChatterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore_ChatterUITests.swift; sourceTree = "<group>"; };
 		2918AED421AC8E5100633DCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		295341DB21B9C27600FEF8CA /* ViewChoreController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewChoreController.swift; sourceTree = "<group>"; };
+		295341DC21B9C27600FEF8CA /* TextFieldMaxLengths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldMaxLengths.swift; sourceTree = "<group>"; };
+		295341DD21B9C27600FEF8CA /* UserCreateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCreateController.swift; sourceTree = "<group>"; };
+		295341DE21B9C27700FEF8CA /* UserLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginController.swift; sourceTree = "<group>"; };
+		295341DF21B9C27700FEF8CA /* CurrentChoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentChoreViewController.swift; sourceTree = "<group>"; };
+		295341E021B9C27700FEF8CA /* EditChoreController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditChoreController.swift; sourceTree = "<group>"; };
+		295341E721B9C42400FEF8CA /* ChoresListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoresListController.swift; sourceTree = "<group>"; };
 		29AF86EF21B5E01A0016525A /* RedeemPointsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedeemPointsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +113,12 @@
 		2918AEB121AC8E4E00633DCA /* Chore Chatter */ = {
 			isa = PBXGroup;
 			children = (
+				295341DF21B9C27700FEF8CA /* CurrentChoreViewController.swift */,
+				295341E021B9C27700FEF8CA /* EditChoreController.swift */,
+				295341DC21B9C27600FEF8CA /* TextFieldMaxLengths.swift */,
+				295341DD21B9C27600FEF8CA /* UserCreateController.swift */,
+				295341DE21B9C27700FEF8CA /* UserLoginController.swift */,
+				295341DB21B9C27600FEF8CA /* ViewChoreController.swift */,
 				2918AEB221AC8E4E00633DCA /* AppDelegate.swift */,
 				2918AEB421AC8E4E00633DCA /* ViewController.swift */,
 				2918AEB621AC8E4E00633DCA /* Main.storyboard */,
@@ -106,6 +126,7 @@
 				2918AEBB21AC8E5100633DCA /* LaunchScreen.storyboard */,
 				2918AEBE21AC8E5100633DCA /* Info.plist */,
 				29AF86EF21B5E01A0016525A /* RedeemPointsController.swift */,
+				295341E721B9C42400FEF8CA /* ChoresListController.swift */,
 			);
 			path = "Chore Chatter";
 			sourceTree = "<group>";
@@ -259,9 +280,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				295341E621B9C27700FEF8CA /* EditChoreController.swift in Sources */,
+				295341E121B9C27700FEF8CA /* ViewChoreController.swift in Sources */,
 				29AF86F021B5E01A0016525A /* RedeemPointsController.swift in Sources */,
+				295341E821B9C42400FEF8CA /* ChoresListController.swift in Sources */,
+				295341E321B9C27700FEF8CA /* UserCreateController.swift in Sources */,
 				2918AEB521AC8E4E00633DCA /* ViewController.swift in Sources */,
+				295341E521B9C27700FEF8CA /* CurrentChoreViewController.swift in Sources */,
+				295341E221B9C27700FEF8CA /* TextFieldMaxLengths.swift in Sources */,
 				2918AEB321AC8E4E00633DCA /* AppDelegate.swift in Sources */,
+				295341E421B9C27700FEF8CA /* UserLoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

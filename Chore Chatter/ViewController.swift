@@ -21,6 +21,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.rowHeight = 75.0
+
         self.navigationItem.title = "Select User"
         // Do any additional setup after loading the view, typically from a nib.
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("ChoreChatter.sqlite")
@@ -32,10 +34,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             print("Error creating table: \(error)")
         }
         
-        if sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS Chores (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER, title VARCHAR, description VARCHAR, points INTEGER)", nil, nil, nil) != SQLITE_OK {
+        if sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS Chores (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER, title VARCHAR, description VARCHAR, points INTEGER, completed INTEGER, due INTEGER)", nil, nil, nil) != SQLITE_OK {
             let error = String(cString: sqlite3_errmsg(db)!)
             print("Error creating table: \(error)")
         }
+        
+        /*if sqlite3_exec(db, "INSERT INTO Chores (id, user, title, description, points, completed, due) VALUES ('1', '1', 'Take out the trash', 'Take the trash to the street', '100', '0', '')", nil, nil, nil) != SQLITE_OK {
+            let error = String(cString: sqlite3_errmsg(db)!)
+            print("Error creating table: \(error)")
+        }*/
         readValues()
     }
 
@@ -58,6 +65,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             users.append(User(Name: name, Picture: picture, ID: id))
         }
+        users.append(User(Name: "Jaden", Picture: "test", ID:1))
         self.tableView.reloadData()
     }
     

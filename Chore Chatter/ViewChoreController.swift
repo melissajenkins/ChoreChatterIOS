@@ -13,17 +13,31 @@ class ViewChoreController : UIViewController {
     @IBOutlet weak var ChorePoints: UILabel!
     @IBOutlet weak var StartTimer: UISwitch!
     @IBAction func startChore(_ sender: Any){
-        print(StartTimer.isOn)
+        //self.performSegue(withIdentifier: "choreListSegue", sender: nil)
     }
+    var delegate: ChoresListController!
+    var chore: Int!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        ChoreTitle.text = "Take out the trash"
-        ChorePoints.text = "100 points"
+        ChoreTitle.text = delegate.chores[chore].Title
+        ChorePoints.text = delegate.chores[chore].Points + " points"
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        switch segue.identifier {
+        case "ActiveChoreSegue":
+            let view = segue.destination as! CurrentChoreViewController
+            view.delegate = self
+            view.choreID = 0
+        default:
+            print("Default hit")
+        }
     }
 }

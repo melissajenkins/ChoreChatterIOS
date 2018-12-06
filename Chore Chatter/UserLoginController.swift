@@ -15,12 +15,13 @@ class UserLoginController: UIViewController {
     @IBOutlet weak var UserPicture: UIImageView!
     @IBOutlet weak var UserName: UILabel!
     @IBAction func UserLogin(_ sender: Any){
-        
+        self.performSegue(withIdentifier: "choreListSegue", sender: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         UserName.text = delegate.users[userSelected].Name
+        UserPicture.image = UIImage(named: delegate.users[userSelected].Picture)
     }
     
     override func didReceiveMemoryWarning() {
