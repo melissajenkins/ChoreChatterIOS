@@ -150,6 +150,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pI6-rU-anp">
                                 <rect key="frame" x="16" y="378.5" width="343" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="EditButton:" destination="fbM-Nh-hiV" eventType="touchUpInside" id="ljT-mt-jgq"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -240,7 +243,7 @@
                     <connections>
                         <outlet property="tableView" destination="9Gp-Ms-8sa" id="mL5-Lk-7VD"/>
                         <segue destination="fbM-Nh-hiV" kind="show" identifier="editChoreSegue" id="oj4-LO-vnZ"/>
-                        <segue destination="o8u-T2-D2R" kind="show" identifier="editChoreSegue" id="24D-Ut-iNA"/>
+                        <segue destination="o8u-T2-D2R" kind="show" identifier="viewChoreSegue" id="24D-Ut-iNA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i81-Y0-mHe" userLabel="First Responder" sceneMemberID="firstResponder"/>

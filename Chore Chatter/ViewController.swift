@@ -69,6 +69,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             print("Error inserting row: \(error)")
         }
         
+        sqlite3_reset(stmt)
+        if sqlite3_prepare(db, "INSERT INTO Users (name, pin, picture, isParent, points) VALUES (?, ?, ?, ?, ?)", -1, &stmt, nil) != SQLITE_OK {
+            let error = String(cString: sqlite3_errmsg(db)!)
+            print("Error creating table: \(error)")
+        }
+        
+        sqlite3_bind_text(stmt, 1, "Morgan", -1, nil)
+        sqlite3_bind_text(stmt, 2, "2222", -1, nil)
+        sqlite3_bind_text(stmt, 3, "test", -1, nil)
+        sqlite3_bind_int(stmt, 4, 0)
+        sqlite3_bind_int(stmt, 5, 100)
+        
+        if sqlite3_step(stmt) != SQLITE_DONE{
+            let error = String(cString: sqlite3_errmsg(db)!)
+            print("Error inserting row: \(error)")
+        }
+        
         //self.tableView.reloadData()
         sqlite3_finalize(stmt)
         
@@ -98,6 +115,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             //users.append(User(Name: name, Picture: picture, ID: id, Parent: isParent, Points: points))
         }
         users.append(User(Name: "Melissa", Picture: "test", ID:1, Parent: 1, Points: 100))
+        users.append(User(Name: "Morgan", Picture: "test", ID:2, Parent: 0, Points: 100))
         self.tableView.reloadData()
     }
     

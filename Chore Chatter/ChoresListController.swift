@@ -20,7 +20,7 @@ class ChoresListController: UIViewController, UITableViewDelegate, UITableViewDa
         var ID: Int;
     }
     var chores = [Chore]()
-    var selectedChore: Int!
+    var selectedChore:Int = 0
     var user: Int!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,14 +70,20 @@ class ChoresListController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //tableView.deselectRow(at: indexPath, animated: true)
-        selectedChore = chores[indexPath.row].ID
-        self.performSegue(withIdentifier: "editChoreSegue", sender: indexPath)
+        if isParent(){
+            selectedChore = chores[indexPath.row].ID
+            self.performSegue(withIdentifier: "editChoreSegue", sender: indexPath)
+        }
+        else {
+            selectedChore = indexPath.row
+            self.performSegue(withIdentifier: "viewChoreSegue", sender: indexPath)
+        }
     }
     
     func readValues(){
         chores.removeAll()
         
-        let queryString = "SELECT title, description, points, dueDate, id FROM Chores WHERE user = ? AND isComplete = ?"
+        let queryString = "SELECT title, description, points, dueDate, id FROM Chores WHERE isComplete = ?"
         var stmt: OpaquePointer?
         
         if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
@@ -86,13 +92,7 @@ class ChoresListController: UIViewController, UITableViewDelegate, UITableViewDa
             return
         }
         
-        if sqlite3_bind_int(stmt, 1, Int32(user)) != SQLITE_OK {
-            let error = String(cString: sqlite3_errmsg(db)!)
-            print("Error binding user ID: \(error)")
-            return
-        }
-        
-        if sqlite3_bind_int(stmt, 2, 0) != SQLITE_OK {
+        if sqlite3_bind_int(stmt, 1, 0) != SQLITE_OK {
             let error = String(cString: sqlite3_errmsg(db)!)
             print("Error binding complete: \(error)")
             return
@@ -122,14 +122,12 @@ class ChoresListController: UIViewController, UITableViewDelegate, UITableViewDa
             if isParent(){
                 let view = segue.destination as! EditChoreController
                 view.delegate = self
-                view.chore = selectedChore
+                view.chore = self.selectedChore
             }
-            else{
+        case "viewChoreSegue":
                 let view = segue.destination as! ViewChoreController
                 view.delegate = self
-                view.chore = selectedChore
-            }
-            
+                view.chore = self.selectedChore
         case "RedeemPointsSegue":
             let view = segue.destination as! RedeemPointsController
             view.user = user

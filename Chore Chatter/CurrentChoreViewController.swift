@@ -7,10 +7,24 @@
 //
 
 import UIKit
+import AVFoundation
 
 class CurrentChoreViewController: UIViewController {
     @IBAction func FinishChore(_ sender: Any){
         stop()
+        guard let path = Bundle.main.url(forResource: "cheer", withExtension: "mp3") else { return }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            timerSoundEffect = try AVAudioPlayer(contentsOf:path, fileTypeHint: AVFileType.mp3.rawValue)
+            guard let timerSoundEffect = timerSoundEffect else { return }
+            timerSoundEffect.play()
+        }
+        catch let error
+        {
+            print(error.localizedDescription)
+        }
+        
     }
     @IBOutlet weak var ChoreTitle: UILabel!
     @IBOutlet weak var ChoreTimer: UILabel!
@@ -19,13 +33,28 @@ class CurrentChoreViewController: UIViewController {
     var time: Double = 0
     var elapsed: Double = 0
     var status: Bool = false
-    var delegate: ViewChoreController!
+    var delegate: ChoresListController!
     var choreID: Int!
+    var timerSoundEffect: AVAudioPlayer?
     override func viewDidLoad() {
         super.viewDidLoad()
+        ChoreTitle.text = delegate.chores[delegate.selectedChore].Title
+        ChoreTimer.text = "00:00"
         // Do any additional setup after loading the view, typically from a nib.
         //ChoreTimer.isHidden = true
         start()
+        guard let path = Bundle.main.url(forResource: "timer", withExtension: "mp3") else { return }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            timerSoundEffect = try AVAudioPlayer(contentsOf:path, fileTypeHint: AVFileType.mp3.rawValue)
+            guard let timerSoundEffect = timerSoundEffect else { return }
+            timerSoundEffect.play()
+        }
+        catch let error
+        {
+            print(error.localizedDescription)
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -20,8 +20,8 @@ class ViewChoreController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        ChoreTitle.text = delegate.chores[chore].Title
-        ChorePoints.text = delegate.chores[chore].Points + " points"
+        ChoreTitle.text = delegate.chores[delegate.selectedChore].Title
+        ChorePoints.text = delegate.chores[delegate.selectedChore].Points + " points"
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,7 +34,7 @@ class ViewChoreController : UIViewController {
         switch segue.identifier {
         case "ActiveChoreSegue":
             let view = segue.destination as! CurrentChoreViewController
-            view.delegate = self
+            view.delegate = delegate
             view.choreID = 0
         default:
             print("Default hit")

@@ -93,12 +93,16 @@ class RedeemPointsController: UIViewController {
         let queryString = "SELECT isParent FROM Users WHERE pin = ?"
         var stmt: OpaquePointer?
         
-        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
+        if sqlite3_prepare_v2(db, queryString, -1, &stmt, nil) != SQLITE_OK {
             let error = String(cString: sqlite3_errmsg(db)!)
             print("Error selecting items: \(error)")
             return false
         }
-        sqlite3_bind_text(stmt, 1, inputPin, -1, nil)
+        if sqlite3_bind_text(stmt, 1, inputPin, -1, nil) != SQLITE_OK {
+            let error = String(cString: sqlite3_errmsg(db)!)
+            print("Error selecting items: \(error)")
+            return false
+        }
         while( sqlite3_step(stmt) == SQLITE_ROW ){
             let isParent = sqlite3_column_int(stmt, 0)
             if isParent == 0 {
