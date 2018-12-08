@@ -107,12 +107,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         while( sqlite3_step(stmt) == SQLITE_ROW ){
             let id = sqlite3_column_int(stmt, 0)
             let name = String(cString: sqlite3_column_text(stmt, 1))
-            let pin = String(cString: sqlite3_column_text(stmt, 2))
+            let _ = String(cString: sqlite3_column_text(stmt, 2)) //user pin
             let picture = String(cString: sqlite3_column_text(stmt, 3))
             let isParent = sqlite3_column_int(stmt, 4)
             let points = sqlite3_column_int(stmt, 5)
 
-            //users.append(User(Name: name, Picture: picture, ID: id, Parent: isParent, Points: points))
+            users.append(User(Name: name, Picture: picture, ID: id, Parent: isParent, Points: points))
         }
         users.append(User(Name: "Melissa", Picture: "test", ID:1, Parent: 1, Points: 100))
         users.append(User(Name: "Morgan", Picture: "test", ID:2, Parent: 0, Points: 100))

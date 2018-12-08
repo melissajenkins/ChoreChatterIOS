@@ -14,7 +14,7 @@ class CurrentChoreViewController: UIViewController {
         stop()
         guard let path = Bundle.main.url(forResource: "cheer", withExtension: "mp3") else { return }
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .defaultToSpeaker)
             try AVAudioSession.sharedInstance().setActive(true)
             timerSoundEffect = try AVAudioPlayer(contentsOf:path, fileTypeHint: AVFileType.mp3.rawValue)
             guard let timerSoundEffect = timerSoundEffect else { return }
@@ -30,8 +30,6 @@ class CurrentChoreViewController: UIViewController {
     @IBOutlet weak var ChoreTimer: UILabel!
     var timer: Timer?
     var startTime: Double = 0
-    var time: Double = 0
-    var elapsed: Double = 0
     var status: Bool = false
     var delegate: ChoresListController!
     var choreID: Int!
@@ -45,7 +43,7 @@ class CurrentChoreViewController: UIViewController {
         start()
         guard let path = Bundle.main.url(forResource: "timer", withExtension: "mp3") else { return }
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .defaultToSpeaker)
             try AVAudioSession.sharedInstance().setActive(true)
             timerSoundEffect = try AVAudioPlayer(contentsOf:path, fileTypeHint: AVFileType.mp3.rawValue)
             guard let timerSoundEffect = timerSoundEffect else { return }
@@ -63,18 +61,18 @@ class CurrentChoreViewController: UIViewController {
     }
     
     func start() {
-        startTime = Date().timeIntervalSinceReferenceDate - elapsed
-        //timer = Timer.scheduledTimer(timeInterval: 0.1, target: self)
+        startTime = Date().timeIntervalSinceReferenceDate
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+        status = true
     }
     
     func stop() {
-        elapsed = Date().timeIntervalSinceReferenceDate - startTime
         timer?.invalidate()
         status = false
     }
     
-    func updateCounter(){
-        time = Date().timeIntervalSinceReferenceDate - startTime
+    @objc func updateCounter(){
+        var time = Date().timeIntervalSinceReferenceDate - startTime
         let minutes = UInt8(time / 60.0)
         time -= (TimeInterval(minutes) * 60)
         let seconds = UInt8(time)

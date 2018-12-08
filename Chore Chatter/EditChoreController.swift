@@ -97,17 +97,17 @@ class EditChoreController: UIViewController {
             }
 
             while( sqlite3_step(stmt) == SQLITE_ROW ){
-                let id = sqlite3_column_int(stmt, 0)
-                let user = sqlite3_column_int(stmt, 1)
+//                let id = sqlite3_column_int(stmt, 0)
+//                let user = sqlite3_column_int(stmt, 1)
                 let title = String(cString: sqlite3_column_text(stmt, 2))
                 let description = String(cString: sqlite3_column_text(stmt, 3))
                 let points = sqlite3_column_int(stmt, 4)
-                let dueDate = Date(timeIntervalSince1970: TimeInterval(sqlite3_column_int(stmt, 5)))
-                let dateFormatter = DateFormatter()
-                dateFormatter.timeZone = TimeZone(abbreviation: "GMT") //Set timezone that you want
-                dateFormatter.locale = NSLocale.current
-                dateFormatter.dateFormat = "MM/dd/yyyy" //Specify your format that you want
-                let strDate = dateFormatter.string(from: dueDate)
+//                let dueDate = Date(timeIntervalSince1970: TimeInterval(sqlite3_column_int(stmt, 5)))
+//                let dateFormatter = DateFormatter()
+//                dateFormatter.timeZone = TimeZone(abbreviation: "GMT") //Set timezone that you want
+//                dateFormatter.locale = NSLocale.current
+//                dateFormatter.dateFormat = "MM/dd/yyyy" //Specify your format that you want
+//                let strDate = dateFormatter.string(from: dueDate)
                 ChoreTitle.text = title
                 ChoreDescription.text = description
                 ChorePoints.text = String(points)
