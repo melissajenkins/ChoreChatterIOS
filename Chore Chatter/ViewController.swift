@@ -15,6 +15,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var Name: String;
         var Picture: String;
         var ID: Int32;
+        var Parent: Int32;
+        var Points: Int32;
     }
     var users = [User]()
     @IBOutlet weak var tableView: UITableView!
@@ -29,20 +31,47 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if sqlite3_open(fileURL.path, &db) != SQLITE_OK {
             print("Error opening database")
         }
+        var stmt: OpaquePointer?
+        if sqlite3_exec(db, "DROP TABLE IF EXISTS Chores", nil, nil, nil) != SQLITE_OK {
+            let error = String(cString: sqlite3_errmsg(db)!)
+            print("Error pruning table: \(error)")
+            return
+        }
+        if sqlite3_exec(db, "DROP TABLE IF EXISTS Users", nil, nil, nil) != SQLITE_OK {
+            let error = String(cString: sqlite3_errmsg(db)!)
+            print("Error pruning table: \(error)")
+            return
+        }
+        
+        
         if sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS Users (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, pin VARCHAR, picture VARCHAR, isParent INTEGER, points INTEGER)", nil, nil, nil) != SQLITE_OK {
             let error = String(cString: sqlite3_errmsg(db)!)
             print("Error creating table: \(error)")
         }
         
-        if sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS Chores (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER, title VARCHAR, description VARCHAR, points INTEGER, completed INTEGER, due INTEGER)", nil, nil, nil) != SQLITE_OK {
+        if sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS Chores (id INTEGER PRIMARY KEY AUTOINCREMENT, user INTEGER, title TEXT, description TEXT, points INTEGER, dueDate TEXT, isComplete INTEGER)", nil, nil, nil) != SQLITE_OK {
             let error = String(cString: sqlite3_errmsg(db)!)
             print("Error creating table: \(error)")
         }
-        
-        /*if sqlite3_exec(db, "INSERT INTO Chores (id, user, title, description, points, completed, due) VALUES ('1', '1', 'Take out the trash', 'Take the trash to the street', '100', '0', '')", nil, nil, nil) != SQLITE_OK {
+        sqlite3_reset(stmt)
+        if sqlite3_prepare(db, "INSERT INTO Users (name, pin, picture, isParent, points) VALUES (?, ?, ?, ?, ?)", -1, &stmt, nil) != SQLITE_OK {
             let error = String(cString: sqlite3_errmsg(db)!)
             print("Error creating table: \(error)")
-        }*/
+        }
+        sqlite3_bind_text(stmt, 1, "Melissa", -1, nil)
+        sqlite3_bind_text(stmt, 2, "1111", -1, nil)
+        sqlite3_bind_text(stmt, 3, "test", -1, nil)
+        sqlite3_bind_int(stmt, 4, 1)
+        sqlite3_bind_int(stmt, 5, 100)
+        
+        if sqlite3_step(stmt) != SQLITE_DONE{
+            let error = String(cString: sqlite3_errmsg(db)!)
+            print("Error inserting row: \(error)")
+        }
+        
+        //self.tableView.reloadData()
+        sqlite3_finalize(stmt)
+        
         readValues()
     }
 
@@ -61,11 +90,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         while( sqlite3_step(stmt) == SQLITE_ROW ){
             let id = sqlite3_column_int(stmt, 0)
             let name = String(cString: sqlite3_column_text(stmt, 1))
-            let picture = String(cString: sqlite3_column_text(stmt, 2))
-            
-            users.append(User(Name: name, Picture: picture, ID: id))
+            let pin = String(cString: sqlite3_column_text(stmt, 2))
+            let picture = String(cString: sqlite3_column_text(stmt, 3))
+            let isParent = sqlite3_column_int(stmt, 4)
+            let points = sqlite3_column_int(stmt, 5)
+
+            //users.append(User(Name: name, Picture: picture, ID: id, Parent: isParent, Points: points))
         }
-        users.append(User(Name: "Jaden", Picture: "test", ID:1))
+        users.append(User(Name: "Melissa", Picture: "test", ID:1, Parent: 1, Points: 100))
         self.tableView.reloadData()
     }
     

@@ -7,9 +7,16 @@
 //
 
 import UIKit
+import SQLite3
 
 class RedeemPointsController: UIViewController {
     
+    var delegate: ViewController!
+    var user: Int!
+    var db: OpaquePointer?
+    var Points: Int!
+    @IBOutlet weak var PointsLabel: UILabel!
+    @IBOutlet weak var PointsInput: UITextField!
     @IBAction func viewTapped(_ sender: Any) {
         showInputDialog()
     }
@@ -17,6 +24,26 @@ class RedeemPointsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("ChoreChatter.sqlite")
+        if sqlite3_open(fileURL.path, &db) != SQLITE_OK {
+            print("Error opening database")
+        }
+        let queryString = "SELECT Points FROM Users WHERE id = ?"
+        var stmt: OpaquePointer?
+        
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
+            let error = String(cString: sqlite3_errmsg(db)!)
+            print("Error selecting items: \(error)")
+            return
+        }
+        sqlite3_bind_int(stmt, 1, Int32(user))
+        while( sqlite3_step(stmt) == SQLITE_ROW ){
+            let points = sqlite3_column_int(stmt, 0)
+            
+            //items.append(Item(shortDescription: shortDescription, longDescription: longDescription))
+            Points = Int(points)
+        }
+        PointsLabel.text = String(Points)
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,10 +62,13 @@ class RedeemPointsController: UIViewController {
             
             //getting the input values from user
             let pin = alertController.textFields?[0].text
-            // email = alertController.textFields?[1].text
-            
-            //self.labelMessage.text = "Name: " + name! + "Email: " + email!
-            
+            if !self.isParentPin(inputPin: pin!) {
+                return
+            }
+            if let b:Int = Int(self.PointsInput.text!){
+                self.Points -= b
+                self.updatePoints()
+            }
         }
         
         //the cancel action doing nothing
@@ -58,6 +88,46 @@ class RedeemPointsController: UIViewController {
         
         //finally presenting the dialog box
         self.present(alertController, animated: true, completion: nil)
+    }
+    func isParentPin(inputPin: String) -> Bool {
+        let queryString = "SELECT isParent FROM Users WHERE pin = ?"
+        var stmt: OpaquePointer?
+        
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
+            let error = String(cString: sqlite3_errmsg(db)!)
+            print("Error selecting items: \(error)")
+            return false
+        }
+        sqlite3_bind_text(stmt, 1, inputPin, -1, nil)
+        while( sqlite3_step(stmt) == SQLITE_ROW ){
+            let isParent = sqlite3_column_int(stmt, 0)
+            if isParent == 0 {
+                continue
+            }
+            else {
+                return true
+            }
+        }
+        return false
+    }
+    func updatePoints(){
+        let queryString = "UPDATE Users SET Points = ? WHERE id = ?"
+        var stmt: OpaquePointer?
+        
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
+            let error = String(cString: sqlite3_errmsg(db)!)
+            print("Error selecting items: \(error)")
+            return
+        }
+        sqlite3_bind_int(stmt, 1, Int32(Points))
+        sqlite3_bind_int(stmt, 2, Int32(user))
+        if sqlite3_step(stmt) != SQLITE_DONE{
+            let error = String(cString: sqlite3_errmsg(db)!)
+            print("Error updating row: \(error)")
+        }
+        
+        //self.tableView.reloadData()
+        sqlite3_finalize(stmt)
     }
     
 }
